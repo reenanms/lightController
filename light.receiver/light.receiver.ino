@@ -1,16 +1,31 @@
-#include <Arduino.h> //é um recurso para referenciar a biblioteca Wiring
-#include <Wire.h> //inclui a biblioteca Wire necessaria para comunicaçao i2c
+const char CommandSeparator = ':';
+const char ParamsSeparator = ',';
+const char EndChar = ';';
 
-void setup() {
-  // put your setup code here, to run once:
+
+void setup()
+{
   Serial.begin(9600);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  if (Serial.available())  //verifica se tem dados diponível para leitura
+String getCommandName(String rawCommand)
+{
+
+  return "";
+}
+
+void loop()
+{
+  /*
+  Comandos suportados:
+    ON [OUTPUT]
+    OFF [OUTPUT]
+  */
+  
+  if (Serial.available())
   {
-    int byteRead = Serial.read(); //le bytwe mais recente no buffer da serial
-    Serial.write(byteRead);   //reenvia para o computador o dado recebido
+    String rawCommand = Serial.readStringUntil(EndChar);
+    Serial.print(rawCommand);
+    Serial.print(EndChar);
   }
 }
