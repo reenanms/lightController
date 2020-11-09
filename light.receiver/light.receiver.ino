@@ -2,15 +2,9 @@ const char CommandSeparator = ':';
 const char ParamsSeparator = ',';
 const char EndChar = ';';
 
-//const int port = 7;
+const int NumberOfPorts = 2;
+const int ValidPorts[NumberOfPorts] = { 7, 8 };
 
-typedef void (*FuncRun)(void);
-
-struct Command {
-   FuncRun Run;
-   String Name;
-   String Parameters[]; 
-};
 
 void turnOn(int port)
 {
@@ -30,51 +24,90 @@ void sendSerialCommand(String command)
   Serial.print(EndChar);
 }
 
-bool getParams(String rawCommand, int commandSeparatorIndex, int numberOfParams, String* outputParams)
+bool isValidPort(int port)
+{
+  for(int i = 0; i < NumberOfPorts; i++)
+  {
+    if (ValidPorts[i] == port)
+      return true;
+  }
+
+  return false;
+}
+
+bool getParams(String rawCommand, int commandSeparatorIndex, int numberOfParams, String* outParams)
 {
   int afterIndex = commandSeparatorIndex;
   for(int i = 0; i < numberOfParams; i++)
   {
      int startIndex = afterIndex+1;
-     afterIndex = rawCommand.indexOf(ParamsSeparator, afterIndex+1);
+     afterIndex = rawCommand.indexOf(ParamsSeparator, startIndex);
+     
      //apenas o ultimo parametro esperado pode não ter o separador(",")
      if (afterIndex == -1 && i != numberOfParams-1) return false; 
      
      int endIndex = afterIndex != -1 ? afterIndex : rawCommand.length()-1;
      String param = rawCommand.substring(startIndex, endIndex+1);
-     outputParams[i] = param;
+     outParams[i] = param;
   }
 
   return true;
 }
 
-void getCommand(String rawCommand)
+bool tryGetPort(String rawCommand, int commandSeparatorIndex, int numberOfParams, int * outPort)
+{
+    String params[1];
+    if (!getParams(rawCommand, commandSeparatorIndex, 1, params))
+    {
+      sendSerialCommand("E:Parametro(s) invalido(s)");
+      return false;
+    }
+
+    int port = params[0].toInt();
+    if (!isValidPort(port))
+    {
+      sendSerialCommand("E:Porta invalida");
+      return false;
+    }
+
+    *outPort = port;
+    return true;
+}
+
+void runCommand(String rawCommand)
 {
   int commandSeparatorIndex = rawCommand.indexOf(CommandSeparator);
   String commandName = rawCommand.substring(0, commandSeparatorIndex);
 
   if (commandName ==  "ON")
   {
-    String params[1];
-    getParams(rawCommand, commandSeparatorIndex, 1, params);
-    turnOn(7);
+    int port;
+    if(!tryGetPort(rawCommand, commandSeparatorIndex, 1, &port))
+      return;
+    
+    turnOn(port);
     sendSerialCommand("S:OK");
+    return;
   }
-  else if (commandName == "OFF")
+  
+  if (commandName == "OFF")
   {
-    String params[1];
-    getParams(rawCommand, commandSeparatorIndex, 1, params);;
-    turnOff(7);
+    int port;
+    if(!tryGetPort(rawCommand, commandSeparatorIndex, 1, &port))
+      return;
+    
+    turnOff(port);
     sendSerialCommand("S:OK");
+    return;
   }
+
+  sendSerialCommand("E:Comando invalido");
 }
 
 void setup()
 {
   Serial.begin(9600);
 }
-
-
 
 void loop()
 {
@@ -87,8 +120,6 @@ void loop()
   if (Serial.available())
   {
     String rawCommand = Serial.readStringUntil(EndChar);
-    
-    //sendSerialCommand(rawCommand);
-    getCommand(rawCommand);
+    runCommand(rawCommand);
   }
 }

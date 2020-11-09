@@ -10,7 +10,7 @@ namespace Light.Controller
                 .AppendLine("Lista de comandos possíveis:");
             var commands = CommandFactory.getListOfCommands();
             foreach (var command in commands)
-                info.AppendLine(command);
+                info.AppendLine($"  {command}");
             userTalker.Write(info.ToString());
         }
     }
