@@ -64,3 +64,14 @@ Uma das maneiras de usar o protocolo é utilizar a interface de linha de comando
 - help
 - turnOn [NumeroPorta]
 - turnOff [NumeroPorta]
+
+
+## Implementação com Arduino
+A implementação com Arduino é super simples, basta utulizar um módulo relé, o código da pasta Light.Receiver e montar o circuito conforme o exemplo abaixo:
+![Esquema com Arduino](ArduinoSchema.png)
+Exemplo de funcionamento:
+![Exemplo em Arduino](ArduinoSample.gif)
+
+## Referências
+- https://www.embarcados.com.br/arduino-comunicacao-serial/
+- https://www.filipeflop.com/blog/controle-modulo-rele-arduino/
