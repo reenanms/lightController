@@ -54,3 +54,13 @@ Exemplo ligando saída 7: ON:7;
 Comando para desligar a saída recebida por parâmetro.
 Exemplo desligando saída 7: ON:7;
 ![Desligando saída 7](CodeSendingCommandOFF.gif)
+
+## Interface de linha de comando (CLI)
+Uma das maneiras de usar o protocolo é utilizar a interface de linha de comando (CLI). Ela abstrai o protocolo e disponibiliza para o usuário os comandos de forma mais amigável.
+![CLI][CLI.gif]
+
+### Lista de comandos
+- q
+- help
+- turnOn [NumeroPorta]
+- turnOff [NumeroPorta]
