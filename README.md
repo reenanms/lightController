@@ -57,7 +57,7 @@ Exemplo desligando saída 7: ON:7;
 
 ## Interface de linha de comando (CLI)
 Uma das maneiras de usar o protocolo é utilizar a interface de linha de comando (CLI). Ela abstrai o protocolo e disponibiliza para o usuário os comandos de forma mais amigável.
-![CLI][CLI.gif]
+![CLI](CLI.gif)
 
 ### Lista de comandos
 - q
