@@ -6,7 +6,7 @@ namespace Light.Controller
     {
         public TurnOffCommand(params String[] parameters) : base(parameters) { }
 
-        protected override string ProtocolCommandName => "Off";
+        protected override string ProtocolCommandName => "OFF";
 
         protected override void validateParams(string[] parameters)
         {

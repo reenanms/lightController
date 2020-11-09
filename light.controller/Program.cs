@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO.Ports;
-using System.Threading;
-
-namespace Light.Controller
+﻿namespace Light.Controller
 {
     public class Program
     {
@@ -11,7 +7,7 @@ namespace Light.Controller
             var communicator = new SerialCommunicator();
             var userTalker = new ConsoleTalker();
             
-            new LightController(communicator, userTalker)
+            new LightControllerCLI(communicator, userTalker)
                 .Start();
         }
     }
