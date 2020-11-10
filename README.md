@@ -8,6 +8,7 @@ A troca de mensagens funciona da seguinte maneira:
 -O cliente faz uma solicitação (request) para o microcontrolador (servidor);
 -O servidor processa a solicitação;
 -O servidor responde (response) o resultado do processamento da solicitação.
+
 ![Request e response](requestResponse.png)
 
 ### Mensagem de request
@@ -46,17 +47,20 @@ ON:[NumeroPorta];
  ```
 Comando para ligar a saída recebida por parâmetro.
 Exemplo ligando saída 7: ON:7;
+
 ![Ligando saída 7](CodeSendingCommandON.gif)
 
 ```
  OFF:[NumeroPorta];
  ```
 Comando para desligar a saída recebida por parâmetro.
-Exemplo desligando saída 7: ON:7;
+Exemplo desligando saída 7: OFF:7;
+
 ![Desligando saída 7](CodeSendingCommandOFF.gif)
 
 ## Interface de linha de comando (CLI)
 Uma das maneiras de usar o protocolo é utilizar a interface de linha de comando (CLI). Ela abstrai o protocolo e disponibiliza para o usuário os comandos de forma mais amigável.
+
 ![CLI](CLI.gif)
 
 ### Lista de comandos
@@ -68,8 +72,11 @@ Uma das maneiras de usar o protocolo é utilizar a interface de linha de comando
 
 ## Implementação com Arduino
 A implementação com Arduino é super simples, basta utulizar um módulo relé, o código da pasta Light.Receiver e montar o circuito conforme o exemplo abaixo:
+
 ![Esquema com Arduino](ArduinoSchema.png)
+
 Exemplo de funcionamento:
+
 ![Exemplo em Arduino](ArduinoSample.gif)
 
 ## Referências
