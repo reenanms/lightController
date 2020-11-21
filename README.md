@@ -35,7 +35,7 @@ As mensagens de response possuem o seguinte modelo:
 
 Onde:
 - STATUS: é o status do processamento do request: S para sucesso ou E para erro;
-- MENSAGEM: mensagem com informações só status.
+- MENSAGEM: mensagem com informações do status.
 
 Importante:
 - O carácter ponto e vírgula (";") determina o fim do comando;
