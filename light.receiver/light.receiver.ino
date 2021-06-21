@@ -18,6 +18,21 @@ void turnOff(int port)
   digitalWrite(port, HIGH);
 }
 
+bool getValue(int port)
+{
+  return digitalRead(port) == LOW;
+}
+
+String getAllValues()
+{
+  String result = "";
+  for (int i = 0; i < NumberOfPorts - 1; i++)
+    result += String(ValidPorts[i]) + "=" + String(getValue(ValidPorts[i])) + ParamsSeparator;
+  result += String(ValidPorts[NumberOfPorts-1]) + "=" + String(getValue(ValidPorts[NumberOfPorts-1]));
+
+  return result;
+}
+
 void sendSerialCommand(String command)
 {
   Serial.print(command);
@@ -79,6 +94,25 @@ void runCommand(String rawCommand)
   int commandSeparatorIndex = rawCommand.indexOf(CommandSeparator);
   String commandName = rawCommand.substring(0, commandSeparatorIndex);
 
+
+  if (commandName == "GETALL")
+  {
+    String data = getAllValues();
+    sendSerialCommand("S:" + data);
+    return;
+  }
+
+  if (commandName == "GET")
+  {
+    int port;
+    if(!tryGetPort(rawCommand, commandSeparatorIndex, 1, &port))
+      return;
+    
+    bool portOutputValue = getValue(port);
+    sendSerialCommand("S:" + String(portOutputValue));
+    return;
+  }
+  
   if (commandName ==  "ON")
   {
     int port;

@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "light.controller": {
+      "commandName": "Project"
+    }
+  }
+}

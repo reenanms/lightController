@@ -58,17 +58,36 @@ Exemplo desligando saída 7: OFF:7;
 
 ![Desligando saída 7](CodeSendingCommandOFF.gif)
 
+```
+ GET:[NumeroPorta];
+ ```
+Comando para retornar o status de uma saída recebida por parâmetro. Sendo 1 ligado e 0 desligado.
+Exemplo solicitação da saída 7: GET:7;
+Resposta: S:1; 
+
+ ```
+ GETALL:;
+ ```
+Comando para retornar o status de todas as saídas e seus status.
+Exemplo solicitação das saídas: GETALL:;
+Resposta com a saida 7 e 8 desligadas: S:7=0,8=0; 
+
 ## Interface de linha de comando (CLI)
 Uma das maneiras de usar o protocolo é utilizar a interface de linha de comando (CLI). Ela abstrai o protocolo e disponibiliza para o usuário os comandos de forma mais amigável.
 
 ![CLI](CLI.gif)
 
 ### Lista de comandos
-- q
 - help
 - turnOn [NumeroPorta]
 - turnOff [NumeroPorta]
+- get [NumeroPorta]
+- getAll
 
+## Interface web (Servidor rest + web page)
+Uma das maneiras de usar o protocolo é utilizar vir uma página web. Ela abstrai o protocolo e disponibiliza para o usuário uma usabilidade muito simples.
+
+![web](web.gif)
 
 ## Implementação com Arduino
 A implementação com Arduino é super simples, basta utulizar um módulo relé, o código da pasta Light.Receiver e montar o circuito conforme o exemplo abaixo:
@@ -82,3 +101,6 @@ Exemplo de funcionamento:
 ## Referências
 - https://www.embarcados.com.br/arduino-comunicacao-serial/
 - https://www.filipeflop.com/blog/controle-modulo-rele-arduino/
+- https://getbootstrap.com/docs/4.0/components/input-group/
+- https://blog.logrocket.com/vue-typescript-tutorial-examples/
+- https://www.youtube.com/watch?v=TSX_hMfL13U&list=PLQCmSnNFVYnTiC-pPY0SySbf-ZNGBwnaG

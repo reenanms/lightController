@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "light.controller.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "getAll"
+    }
+  }
+}
